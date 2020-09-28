@@ -1,0 +1,80 @@
+notdone = True 
+while notdone:
+  print ("Welcome to the dungeon...... what is your name?")
+  L = input (">> ")
+  print (L + (" before you go into the dungeon pick a tool that you want"))
+  print ("You have a choice of picking  between a pickaxe and a shovel....... which will you choose")
+  P= input (">> ").lower() 
+  if P == ("pickaxe"):
+    print ("You chose the pickaxe")
+  elif P == ("shovel"):
+    print (" You chose the shovel")
+  print ("be careful of the monsters in the dungeon "+L)
+
+
+  print ("You have now entered the dungeon ")
+  q = [" left ", " Right "," straight "]
+  print("you have gone foward and found a 3 way...... you can go left ,right , or forward.......which way will you go?")
+  I = input(">> ").lower()
+  if I == ("left"):
+    print ("you chose to go left")
+    print ("you keep going straight and find a a 2 paths. One leads to the right and one leads to the left. Which path do you want to take?")
+    Y = input(">> ").lower() 
+    if Y == ("left"):
+      print ( " you chose to go left and encountered a monster")
+      if P == ("pickaxe"):
+        print ("you have the choice between attacking him with your pickaxe or running away from him..... what do you do?")
+      elif P == ("shovel"):
+        print ("you have the chioce of attacking with your shovel or running away.... what do you do?")   
+      E = input(">> ").lower()
+      if E == ("run away"):
+        print ("you chose to run away but the monster and escaped succesfully")
+        print ( "you go back to the path that you came from and find the path from before, you proceed to go foward")
+        print ("you keep going straight foward for a while and a find another section of paths. One of the paths leads to the Northwest and the other leads to the Northeast........ which path do you want to choose")
+        N = input(">> ").lower()
+        if N == ("northeast"):
+          print ( "you chose to got northeast and find a different monster...... do you want to attack it or run away")
+          E = input(">> ").lower()
+          if E == ("attack"):
+            print ("you chose to attack the monster and were able to succesfully take it down") 
+          if E == ("run away"):
+            print ("you tried running away from the monster but it heard your loud footsteps and killed you")
+            wantorestart = input ("would you like to restart?.......y/n")
+            if (wantorestart == "y"):
+              notdone = True 
+            if (wantorestart == "n"):
+              notdone = False   
+        if N == ("northwest"):
+          print ( "you chose to got northeast and find a different monster...... do you want to attack it or run away")
+        if E == ("attack"):
+          print ("you chose to attack the monster and were able to succesfully take it down") 
+          print ("you keep going foward sand find a ")
+        if E == ("run away"):
+           print ("you tried running away from the monster but it heard your loud footsteps and killed you")
+           wantorestart = input ("would you like to restart?.......y/n")
+           if (wantorestart)==  "n":
+             notdone = False 
+           if (wantorestart == "y"):
+             nodone = True 
+
+        
+
+      elif E == ("attack" or "attack with"+ P):
+        print ("you tried attacking the moster with but ended up doing no damage and died ")
+        wantorestart = input ("would you like to restart?.......y/n")
+        if (wantorestart == "y"):
+          notdone = True 
+        if (wantorestart == "n"):
+          notdone = False   
+ 
+
+  elif I == ("right"):
+    print ("you chose to go right")
+  elif I == ("straight"):
+    print(" you kept going straight") 
+  print ("you keep going straight foward and find some mine cart rails leading to lower into the cave.... do you want to follow the tracks or keep going straight") 
+  U = input (">> ").lower()
+  if U == ("follow the tracks" or "tracks"):
+    print ("you chose to follow the tracks")
+  elif U == ("keep going straight" or "straight"):
+    print ("you chose to keep going stright")
