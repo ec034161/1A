@@ -1,3 +1,42 @@
+def fight(): 
+  myHP = 12
+  E_HP = 12
+  print("Player HP", myHP)
+  print("Enemy HP", E_HP)
+  print("you have encountered a monster, How will you attack him? 1. sneak behind and attack him or 2.run as fast as you can and attack him ")
+  M = input(">> ").lower()
+  if M == ("sneak" or "sneak behind"):
+    print ("you tried sneaking up behind the monster and attacking it but you did not have enough force to kill it.......You Died")
+    print (myHP-12)
+    print (E_HP)
+  elif M == ("sneak" or "sneak behind"):
+    print ("you snuck up behind the monster and hit the monster in the neck which ended up killing it")
+    print(E_HP-12)
+    print (myHP)
+  elif M == ("sneak" or "sneak behind"):
+    print ("you sneaked up behind the monster and attacked it, in turn it also tried attacking you but you ended up dodging the attack which lead to the monster flailing his arms around leaving him open for an attack....... do you want to finish him off or run away from him")
+    print(myHP)
+    print(E_HP= 12 -6)
+
+    Z = input(">> ").lower()
+    if Z == ("finish him off" or "finish him"):
+     print ("you snuck up right behind him and was able to strike iwAdat one more time which finished him off")
+     print (myHP)
+     print (E_HP= 6-6)
+    elif M == ("run away" or "leave"):
+      print ("you run off to the direction you were goint towards and leave the monster behind"
+      )
+  elif M == ("run" or "run towards him"):
+    print(" You ran as fast as you could towards the monster and was able to defeat it")
+    print (myHP)
+    print (E_HP - 12)
+  elif M == ("run" or "run towards him"):
+    print ("You ran as fast as you could towards the monster but, the monster heard you coming and was able to react and kill you")
+    print (myHP - 12)
+    print (E_HP)
+
+fight()
+    
 notdone = True 
 while notdone:
   print ("Welcome to the dungeon...... what is your name?")
@@ -22,28 +61,20 @@ while notdone:
     Y = input(">> ").lower() 
     if Y == ("left"):
       print ( " you chose to go left and encountered a monster")
-      if P == ("pickaxe"):
-        print ("you have the choice between attacking him with your pickaxe or running away from him..... what do you do?")
-      elif P == ("shovel"):
-        print ("you have the chioce of attacking with your shovel or running away.... what do you do?")   
+      fight()
+      N = input(">> ").lower()
+      if N == ("northeast"):
+         print ( "you chose to got northeast and find a different monster...... do you want to attack it or run away")
       E = input(">> ").lower()
+      if E == ("attack"):
+        print ("you chose to attack the monster and were able to succesfully take it down") 
       if E == ("run away"):
-        print ("you chose to run away but the monster and escaped succesfully")
-        print ( "you go back to the path that you came from and find the path from before, you proceed to go foward")
-        print ("you keep going straight foward for a while and a find another section of paths. One of the paths leads to the Northwest and the other leads to the Northeast........ which path do you want to choose")
-        N = input(">> ").lower()
-        if N == ("northeast"):
-          print ( "you chose to got northeast and find a different monster...... do you want to attack it or run away")
-          E = input(">> ").lower()
-          if E == ("attack"):
-            print ("you chose to attack the monster and were able to succesfully take it down") 
-          if E == ("run away"):
-            print ("you tried running away from the monster but it heard your loud footsteps and killed you")
-            wantorestart = input ("would you like to restart?.......y/n")
-            if (wantorestart == "y"):
-              notdone = True 
-            if (wantorestart == "n"):
-              notdone = False   
+        print ("you tried running away from the monster but it heard your loud footsteps and killed you")
+        wantorestart = input ("would you like to restart?.......y/n")
+        if (wantorestart == "y"):
+          notdone = True 
+        if (wantorestart == "n"):
+          notdone = False   
         if N == ("northwest"):
           print ( "you chose to got northeast and find a different monster...... do you want to attack it or run away")
         if E == ("attack"):
@@ -70,9 +101,10 @@ while notdone:
 
   elif I == ("right"):
     print ("you chose to go right")
+
   elif I == ("straight"):
     print(" you kept going straight") 
-  print ("you keep going straight foward and find some mine cart rails leading to lower into the cave.... do you want to follow the tracks or keep going straight") 
+  print ("you keep going straight foward and find some mine cart rails leading to lower into the cave.... do you want to follow the tracks or keep going straight")
   U = input (">> ").lower()
   if U == ("follow the tracks" or "tracks"):
     print ("you chose to follow the tracks")
