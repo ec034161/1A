@@ -1,0 +1,90 @@
+import pygame, sys
+from pygame.locals import * 
+
+clock = pygame.time.Clock()
+
+PLAYER_ACC = 0.9
+PLAYER_FRICTION = -0.12
+PLAYER_GRAV = 0.9
+vec = pygame.math.Vector2
+
+WIDTH = 400
+HEIGHT = 400
+GROUND = HEIGHT - 60
+
+BLACK = (0, 0, 0)
+
+pygame.init()
+
+WINDOW_SIZE = (WIDTH, HEIGHT)
+pygame.display.set_caption('platformer')
+screen = pygame.display.set_mode(WINDOW_SIZE,0,32)
+
+'''
+  self.acc.x += self.vel.x * PLAYER_FRICTION
+
+  self.vel += self.acc
+  self.pos += self.vel + 0.5 * self.acc
+
+  if player_rect.colliderect(test_rect):
+    pygame.draw.rect(screen,(255,0,0),test_rect)
+  else:
+    pygame.draw.rect(screen,(0,0,0),test_rect)   
+'''
+
+class Player (pygame.sprite.Sprite):
+    def __init__ (self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("sprite.png").convert()
+        self.image.set_colorkey(BLACK)
+        self.rect = self.image.get_rect()
+
+        self.pos = vec(10, GROUND - 60)
+        self.vel = vec(0,0)
+        self.acc = vec(0,0)
+
+    def update (self): 
+        self.acc = vec(0, PLAYER_GRAV)
+
+        keystate = pygame.key.get_pressed()
+
+        if keystate[pygame.K_RIGHT]:
+            self.rect.x += 5 
+ 
+        if keystate[pygame.K_LEFT]:
+            self.rect.x += -5 
+    
+        if keystate[pygame.K_UP]:
+            self.rect.y += -5  
+ 
+        if keystate[pygame.K_DOWN]:
+            self.rect.y += 5
+      
+        if self.pos.y > GROUND:
+            self.pos.y = GROUND + 1
+            self.vel.y = 0
+            
+#SPRITE GROUPS
+all_sprites = pygame.sprite.Group()
+player = Player()
+all_sprites.add(player)
+
+#GAME LOOP
+while True:
+
+    clock.tick(30)
+
+    #CHECK FOR EVENTS
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+
+    #UPDATE
+    all_sprites.update()
+
+    #DRAW
+    screen.fill((12,208,44))
+    all_sprites.draw(screen)
+
+    pygame.display.flip()
