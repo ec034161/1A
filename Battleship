@@ -1,0 +1,33 @@
+from termcolor import colored 
+
+C = int(5)
+B = int(4) 
+R = int(3)
+S = int(3)
+D = int(2)
+
+print("Battleship")
+
+ROWS = 10 
+COLS = 10 
+player1 = []
+
+ROWS = int(input("which row do you want to put your Carrier: "))
+COLS = int(input("which column do you want to put your Carrier"))
+
+for i in range (ROWS):
+  row = []
+  for j in range(COLS):
+    row.append("*")
+  player1.append(row)
+
+for i in range(ROWS):
+  print(colored(player1[i], 'green')) 
+
+for row in range(ROWS):
+  for col in range (COLS):
+    if row == 5 and col == 5:
+      print (colored(player1[row][col], 'green'), end = ' ')
+    else:
+      print(colored(player1[row][col], 'red'), end =' ')
+  print()
