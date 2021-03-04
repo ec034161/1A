@@ -1,77 +1,140 @@
 import pygame, sys
-from pygame.locals import * 
+from pygame.locals import *
 
-clock = pygame.time.Clock()
+WIDTH = 400
+HEIGHT = 400
+GROUND = HEIGHT - 60
+WINDOW_SIZE = (WIDTH, HEIGHT)
+
+BLACK = (0, 0, 0)
+WHITE = (255,255,255)
+GREEN = (0,255,0)
 
 PLAYER_ACC = 0.9
 PLAYER_FRICTION = -0.12
 PLAYER_GRAV = 0.9
 vec = pygame.math.Vector2
 
-WIDTH = 400
-HEIGHT = 400
-GROUND = HEIGHT - 60
 
-BLACK = (0, 0, 0)
+#DRAW TEXT FUNCTION
+font_name = pygame.font.match_font('times new roman')
+def draw_text(surf, text, size, x, y):
+    font= pygame.font.Font(font_name, size)
+    text_surface = font.render(text, True, GREEN)
+    text_rect = text_surface.get_rect()
+    text_rect.midtop= (x,y)
+    surf.blit(text_surface, text_rect)
 
-pygame.init()
-
-WINDOW_SIZE = (WIDTH, HEIGHT)
-pygame.display.set_caption('platformer')
-screen = pygame.display.set_mode(WINDOW_SIZE,0,32)
-
-'''
-  self.acc.x += self.vel.x * PLAYER_FRICTION
-
-  self.vel += self.acc
-  self.pos += self.vel + 0.5 * self.acc
-
-  if player_rect.colliderect(test_rect):
-    pygame.draw.rect(screen,(255,0,0),test_rect)
-  else:
-    pygame.draw.rect(screen,(0,0,0),test_rect)   
-'''
+#START SCREEN FUNCTION 
+def show_start_screen():
+    screen.fill(BLACK)
+    keystate = pygame.key.get_pressed()
+    draw_text(screen, "Kanye West simulator", 64, WIDTH / 2 , HEIGHT / 4)
+    draw_text(screen, "press any key to begin", 22, WIDTH /2 , HEIGHT / 2)
+    pygame.display.flip() 
+    running = True  
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYUP:
+                running = False
+#GAME OVER SCREEN FUNCTION
+def game_over_screen:
+    screen.fill(BLACK)
+    draw_text(screen, "Game Over", 64 WIDTH / 2 , HEIGHT / 3)
+    draw_text(screen, "press any key to restart", 22, WIDTH /2, HEIGHT/2)
+    pygame.display.flip()
+    running = 
 
 class Player (pygame.sprite.Sprite):
     def __init__ (self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("sprite.png").convert()
+        self.images=[
+            pygame.image.load("sprite_0.png").convert(),
+            pygame.image.load("sprite_1.png").convert(),
+            pygame.image.load("sprite_2.png").convert(),
+            pygame.image.load("sprite_3.png").convert(),
+            pygame.image.load("sprite_4.png").convert(),
+            pygame.image.load("sprite_5.png").convert(),
+            pygame.image.load("sprite_6.png").convert(),
+            pygame.image.load("sprite_7.png").convert(),
+            pygame.image.load("sprite_8.png").convert(),
+            pygame.image.load("sprite_9.png").convert()
+            ]
+        self.count = 0
+        self.image = self.images[self.count]
+
         self.image.set_colorkey(BLACK)
+
+        #self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
 
         self.pos = vec(10, GROUND - 60)
         self.vel = vec(0,0)
-        self.acc = vec(0,0)
+        self.acc = vec(0,0)    
 
     def update (self): 
         self.acc = vec(0, PLAYER_GRAV)
 
+        #KEY MOVEMENT
         keystate = pygame.key.get_pressed()
-
+        
         if keystate[pygame.K_RIGHT]:
-            self.rect.x += 5 
+            self.rect.x += 5
+            if self.count > 3:
+                self.count = 0
+            self.image = self.images[self.count]
+            self.count += 1
  
-        if keystate[pygame.K_LEFT]:
-            self.rect.x += -5 
+        elif keystate[pygame.K_LEFT]:
+            self.rect.x += -5
+            if self.count < 4:
+                self.count = 4
+            elif self.count > 7:
+                self.count = 4
+            self.image = self.images[self.count]
+            self.count += 1
     
-        if keystate[pygame.K_UP]:
+        elif keystate[pygame.K_UP]:
             self.rect.y += -5  
  
-        if keystate[pygame.K_DOWN]:
+        elif keystate[pygame.K_DOWN]:
             self.rect.y += 5
+
+        elif keystate[pygame.K_e]:
+            self.image = pygame.image.load("sprite_9.png")
+
+        elif keystate[pygame.K_q]:
+            self.image = pygame.image.load("sprite_8.png")
+
+        else:
+         self.image = self.images[0]
+         
+        self.image.set_colorkey(BLACK)
+ 
       
         if self.pos.y > GROUND:
             self.pos.y = GROUND + 1
             self.vel.y = 0
-            
+
+pygame.init()
+pygame.display.set_caption('platformer')
+screen = pygame.display.set_mode(WINDOW_SIZE,0,32)
+clock = pygame.time.Clock()
+
 #SPRITE GROUPS
 all_sprites = pygame.sprite.Group()
 player = Player()
 all_sprites.add(player)
 
-#GAME LOOP
-while True:
-
+start = True
+running = True
+while running :    
+    #START SCREEN 
+    if start:
+        show_start_screen()
+        start = False
     clock.tick(30)
 
     #CHECK FOR EVENTS
@@ -80,11 +143,13 @@ while True:
             pygame.quit()
             sys.exit()
 
-    #UPDATE
-    all_sprites.update()
-
     #DRAW
     screen.fill((12,208,44))
     all_sprites.draw(screen)
 
+        #UPDATE
+    all_sprites.update()
+
     pygame.display.flip()
+    
+
