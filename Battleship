@@ -12,21 +12,26 @@ ROWS = 10
 COLS = 10 
 player1 = []
 
-ROWS = int(input("which row do you want to put your Carrier: "))
-COLS = int(input("which column do you want to put your Carrier"))
-
-for i in range (ROWS):
+for i in range(ROWS):
   row = []
   for j in range(COLS):
     row.append("*")
   player1.append(row)
 
 for i in range(ROWS):
-  print(colored(player1[i], 'green')) 
+  print(colored(player1[i], 'blue')) 
 
-for row in range(ROWS):
-  for col in range (COLS):
-    if row == 5 and col == 5:
+row = int(input("which row do you want to put your Carrier?: "))
+rowpos = input("do you want it to be horizontal or vetical?: ")
+col = int(input("which column do you want to put your Carrier"))
+
+
+if rowpos == ("horizontal"):
+  print(colored(player1[row], 'yellow'))
+
+for r in range(ROWS):
+  for c in range (COLS):
+    if r == row and c == col:
       print (colored(player1[row][col], 'green'), end = ' ')
     else:
       print(colored(player1[row][col], 'red'), end =' ')
